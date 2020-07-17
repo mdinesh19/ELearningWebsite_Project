@@ -12,7 +12,7 @@ import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="feature_files", glue= "stepdefinitions", tags="@CreateTrainingSession_AddCareerPromotionSession_Excel",
+@CucumberOptions(features="feature_files", glue= "stepdefinitions",
 format=
 {"pretty",
 "html:target/cucumber-reports/cucumber-pretty",

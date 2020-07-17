@@ -51,3 +51,4 @@ Feature: This feature is to create training session, add career, promotion and s
     Then I click on the student name link
     And I click on Finish session creation button
     And I verify whether the session is successfully created
+		And I close the browser

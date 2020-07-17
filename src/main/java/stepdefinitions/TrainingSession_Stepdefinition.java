@@ -204,4 +204,68 @@ public class TrainingSession_Stepdefinition {
 	}
 
 
+	@Given("^I launch the application url \"([^\"]*)\"$")
+	public void i_launch_the_application_url(String url) throws Throwable {
+		System.setProperty("webdriver.chrome.driver", "Drivers\\chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+        driver.get(url);  
+	    
+	}
+
+	@And("^I enter the valid username \"([^\"]*)\" in username$")
+	public void i_enter_the_valid_username_in_username(String userName) throws Throwable {
+		driver.findElement(By.xpath("//input[@id='login']")).sendKeys(userName);    
+	}
+
+	@Then("^I enter the valid password \"([^\"]*)\" in password$")
+	public void i_enter_the_valid_password_in_password(String password) throws Throwable {
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password); 
+	}
+
+	@And("^I enter valid data \"([^\"]*)\" in Session name$")
+	public void i_enter_valid_data_in_Session_name(String sessionName) throws Throwable {
+		driver.findElement(By.xpath("//input[@id='add_session_name']")).sendKeys(sessionName+Math.random());
+	}
+
+	@Then("^I select valid coach name \"([^\"]*)\" in coach name$")
+	public void i_select_valid_coach_name_in_coach_name(String coachName) throws Throwable {
+		driver.findElement(By.xpath("//span[contains(@id,'coach_username-container')]")).click();;
+		driver.findElement(By.xpath("//input[contains(@class, 'search__field')]")).sendKeys(coachName);
+		Actions actions = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver,20);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li[text()='Abc Def']")));
+		WebElement coachFieldValue = driver.findElement(By.xpath("//li[text()='Abc Def']"));
+		actions.moveToElement(coachFieldValue).click().perform();
+	}
+
+	@Then("^I select course \"([^\"]*)\" in course list$")
+	public void i_select_course_in_course_list(String courseList) throws Throwable {
+		WebElement courseslistDropdown = driver.findElement(By.xpath("//select[contains(@name,'NoSessionCoursesList')]"));
+		Select select = new Select(courseslistDropdown);
+	    select.selectByVisibleText(courseList);
+	}
+
+	@And("^I enter student name \"([^\"]*)\" in users list$")
+	public void i_enter_student_name_in_users_list(String studentName) throws Throwable {
+		driver.findElement(By.xpath("//input[@id='user_to_add']")).sendKeys(studentName);
+	}
+
+	@Then("^I enter valid data \"([^\"]*)\" in Name field of Add career page$")
+	public void i_enter_valid_data_in_Name_field_of_Add_career_page(String careerName) throws Throwable {
+		driver.findElement(By.xpath("//input[@id='career_name']")).sendKeys(careerName);
+		Thread.sleep(3000);
+	}
+
+	@Then("^I enter valid data \"([^\"]*)\" in Name field of Add promotion page$")
+	public void i_enter_valid_data_in_Name_field_of_Add_promotion_page(String promotionName) throws Throwable {
+		driver.findElement(By.xpath("//input[@name='name']")).sendKeys(promotionName);
+	}
+
+	@And("^I close the browser$")
+	public void i_close_the_browser() {
+		driver.quit();
+	}
+
+	
 }
